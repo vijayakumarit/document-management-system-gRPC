@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package dmsPackage;
+
+service DocumentManagement {
+    rpc register(registerUser) returns (registerUser);
+    rpc login(loginUser) returns (loginUser);
+    rpc createDocument(createDocuments) returns (createDocuments);
+    rpc getbyOwnerId(getbyOwner) returns (getbyOwner);
+    rpc getbyParent (getbyParentId) returns (getbyParentId)
+
+}
+
+message voidNoParam {}
+
+message registerUser {
+    string id = 1;
+    string tenantId = 2;
+    string name = 3;
+    string email = 4;
+    string password =5;
+}
+
+message loginUser {
+    string email = 1;
+    string password = 2;
+}
+
+message createDocuments {
+    string  documentType = 1;
+    string  documentName = 2;
+   optional string  content = 3;
+    string  parent = 4;
+    string  owner = 5;
+    string  tenantId = 6;
+}
+
+message getbyOwner {
+    string owner = 1;
+    string tenantId = 2;
+}
+
+message getbyParentId {
+    string tenantId = 1;
+}
