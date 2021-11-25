@@ -7,8 +7,7 @@ service DocumentManagement {
     rpc login(loginUser) returns (loginUser);
     rpc createDocument(createDocuments) returns (createDocuments);
     rpc getbyOwnerId(getbyOwner) returns (getbyOwner);
-    rpc getbyParent (getbyParentId) returns (getbyParentId)
-
+    rpc getbyParent (getbyParentId) returns (getbyParentId);
 }
 
 message voidNoParam {}
@@ -29,7 +28,7 @@ message loginUser {
 message createDocuments {
     string  documentType = 1;
     string  documentName = 2;
-   optional string  content = 3;
+    string  content = 3;
     string  parent = 4;
     string  owner = 5;
     string  tenantId = 6;
