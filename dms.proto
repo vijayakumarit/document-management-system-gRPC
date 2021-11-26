@@ -13,7 +13,6 @@ service DocumentManagement {
 message voidNoParam {}
 
 message registerUser {
-    string id = 1;
     string tenantId = 2;
     string name = 3;
     string email = 4;
@@ -28,7 +27,7 @@ message loginUser {
 message createDocuments {
     string  documentType = 1;
     string  documentName = 2;
-    string  content = 3;
+    optional string  content = 3;
     string  parent = 4;
     string  owner = 5;
     string  tenantId = 6;

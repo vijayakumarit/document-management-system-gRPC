@@ -6,17 +6,17 @@ const mongoose = require("mongoose")
 
 //Register
 exports.register = async (req,res,next)=>{
+    
+    const {tenantId,name,email,password}=req.request;
 
-    const {tenantId,name,email,password}=req.body;
- 
     const user = await User.create({
-        tenantId,
+       tenantId,
         name,
         email,
         password,
         
     });
-
+    setTokenResponse(user,200,res)
  }
 
  //login
@@ -76,11 +76,37 @@ return next(new ErrorResponse('Please enter the email and password',400))
   //get
  exports.getbyParent = async (req,res,next)=>{
 
-    //  if(req.params.tenantId && req.params.parent && )
+     if(req.params.tenantId && req.params.parent){
+         
+     }
     const getallDocument = await Documents.find(req.params.tenantId);
   
     res.status(200).json({
       success: true,
       data : getallDocument
+    })
+  }
+
+  //Get token from the model create a cookie send response
+
+const setTokenResponse = (user,statusCode,res) =>{
+
+    const JWT_COOKIE_EXPIRE = '10d'
+    const token = user.getSignedJwtToken();
+    const options = {
+        expires: new Date(
+          Date.now() + JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000
+        ),
+        httpOnly: true
+      };
+  
+  
+      console.log("JWT VIA",options)
+    res
+    .status(statusCode)
+    .cookie('token',token,options)
+    .json({
+        success : true,
+        token
     })
   }

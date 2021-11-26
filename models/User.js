@@ -1,7 +1,7 @@
-// const crypto = require('crypto')
+const crypto = require('crypto')
 const mongoose = require ('mongoose')
-// const bcrypt = require ('bcryptjs')
-// const jwt = require('jsonwebtoken')
+const bcrypt = require ('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 const UserSchema = new mongoose.Schema({
 
@@ -41,7 +41,38 @@ const UserSchema = new mongoose.Schema({
       updatedAt: {
       type: Date,
       }
+   });
+
+
+
+    //Encrypt password by bcryptjs
+    UserSchema.pre('save',async function (next){
+
+      if(!this.isModified('password')){
+        next();
+      }
+
+        const salt = await bcrypt.genSalt(10);
+        
+        this.password = await bcrypt.hash(this.password,salt)
+
+
     });
 
+    //Generate JWT webtoken
+    const JWT_SECRET = "gRPCchecking";
+    const JWT_EXPIRE = "10d"
+
+      UserSchema.methods.getSignedJwtToken = function(){
+        return jwt.sign({id:this._id},JWT_SECRET,{
+        expiresIn:JWT_EXPIRE
+    })
+  }
+      //Compare the password hash the password to entered the password
+
+      UserSchema.methods.matchPassword = async function(enteredPassword){
+        return await bcrypt.compare(enteredPassword,this.password)
+      }
+ 
 
 module.exports = mongoose.model('User',UserSchema)

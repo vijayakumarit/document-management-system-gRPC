@@ -20,7 +20,7 @@ const Services = require('./services/userServices')
 const server = new grpc.Server();
 server.addService(dmsPackageDefinition.DocumentManagement.service, {
     register: Services.register,
-    login: Services.login,
+    //login: Services.login,
     // getSingleTodo: Controller.Todo.getSingleTodo,
     // deleteTodo: Controller.Todo.deleteTodo,
     // updateTodo: Controller.Todo.updateTodo

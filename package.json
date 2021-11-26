@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "develop": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,12 @@
   "dependencies": {
     "@grpc/proto-loader": "^0.6.7",
     "grpc": "^1.24.11",
-    "mongoose": "^6.0.13"
+    "mongoose": "^6.0.13",
+    "jsonwebtoken": "^8.5.1",
+    "bcryptjs": "^2.4.3"
+
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
