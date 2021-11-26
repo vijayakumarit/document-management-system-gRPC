@@ -2,12 +2,19 @@ const mongoose = require ('mongoose')
 
 const DocumentsSchema = new mongoose.Schema({
 
+    documentId: {
+        type: String,
+        unique:true
+      },
+
     documentType: {
         type: String,
-        required: true
+        required: true,
+        enum:['file','folder']
       },
      documentName: {
          type: String,
+         unique:true,
          required: true
      },
      content: {
@@ -15,16 +22,17 @@ const DocumentsSchema = new mongoose.Schema({
     },
     parent: {
         type: String,
+        default:"root"
         
     },
     owner: {
-        type: mongoose.Schema.ObjectId,
+        type: String,
         ref: 'User',
         required: true,
         index: true
     },
     tenantId: {
-        type: mongoose.Schema.ObjectId,
+        type: String,
         ref: 'Tenants',
         required: true,
         index: true
@@ -41,5 +49,10 @@ const DocumentsSchema = new mongoose.Schema({
       }
     });
 
+
+    DocumentsSchema.pre('save', function (next) {
+        this.documentId = this.get('_id'); 
+        next();
+    });
 
 module.exports = mongoose.model('Documents',DocumentsSchema)

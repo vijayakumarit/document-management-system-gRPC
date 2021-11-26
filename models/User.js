@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 const UserSchema = new mongoose.Schema({
 
     tenantId: {
-        type: mongoose.Schema.ObjectId,
+        type: String,
         ref: 'Tenants',
         required: true,
         index: true
@@ -64,7 +64,7 @@ const UserSchema = new mongoose.Schema({
     const JWT_EXPIRE = "10d"
 
       UserSchema.methods.getSignedJwtToken = function(){
-        return jwt.sign({id:this._id},JWT_SECRET,{
+        return jwt.sign({id:this._id, tenantId:this.tenantId},JWT_SECRET,{
         expiresIn:JWT_EXPIRE
     })
   }
