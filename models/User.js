@@ -4,7 +4,6 @@ const bcrypt = require ('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 const UserSchema = new mongoose.Schema({
-
     tenantId: {
         type: String,
         ref: 'Tenants',
@@ -43,33 +42,22 @@ const UserSchema = new mongoose.Schema({
       }
    });
 
-
-
     //Encrypt password by bcryptjs
     UserSchema.pre('save',async function (next){
-
       if(!this.isModified('password')){
         next();
       }
-
         const salt = await bcrypt.genSalt(10);
-        
         this.password = await bcrypt.hash(this.password,salt)
-
-
     });
-
+   
     //Generate JWT webtoken
-    const JWT_SECRET = "gRPCchecking";
-    const JWT_EXPIRE = "10d"
-
       UserSchema.methods.getSignedJwtToken = function(){
-        return jwt.sign({id:this._id, tenantId:this.tenantId},JWT_SECRET,{
-        expiresIn:JWT_EXPIRE
+        return jwt.sign({id:this._id, tenantId:this.tenantId},process.env.JWT_SECRET,{
+        expiresIn:process.env.JWT_EXPIRE
     })
   }
       //Compare the password hash the password to entered the password
-
       UserSchema.methods.matchPassword = async function(enteredPassword){
         return await bcrypt.compare(enteredPassword,this.password)
       }

@@ -15,10 +15,10 @@ service DocumentManagement {
 message voidNoParam {}
 
 message registerUser {
-    string tenantId = 2;
-    string name = 3;
-    string email = 4;
-    string password =5;
+    string tenantId = 1;
+    string name = 2;
+    string email = 3;
+    string password = 4;
 }
 
 message successResponse {
@@ -36,16 +36,18 @@ message successLogin {
 
 
 message createDocuments {
-    string  documentType = 1;
-    string  documentName = 2;
-    optional string  content = 3;
-    string  parent = 4;
-    string  owner = 5;
-    string  tenantId = 6;
+    string  tenantId = 1;
+    string  owner = 2;
+    string  parent = 3;
+    string  documentType = 4;
+    string  documentName = 5;
+    optional string  content = 6;
+    
+
 }
 message getLists {
-    string owner = 1;
-    string tenantId = 2;
+    string tenantId = 1;
+    string owner = 2;
     optional string parent =3;
 }
 
@@ -54,16 +56,26 @@ message getdocumentList {
 }
 
 message updateDocument {
-    string  documentId = 1;
-    string  documentName = 2;
-    string  content = 3;
+
+    string  tenantId = 1;
+    string  owner = 2;
+    string  documentId = 3;
+    string  documentName = 4;
+    string  content = 5;
+    string  updatedAt = 6;
+
 }
 
 message removeDocument {
-    string documentId =1;
+    string  tenantId = 1;
+    string  owner = 2;
+    string  documentId = 3;
 }
 
 message moveDocument{
-    string  documentId = 1;
-    string  parent = 2;
+    string  tenantId = 1;
+    string  owner = 2;
+    string  documentId = 3;
+    string  parent =4;
+    string  updatedAt = 5;
 }

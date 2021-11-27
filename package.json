@@ -20,11 +20,11 @@
   "homepage": "https://github.com/vijayakumarit/document-management-system-gRPC#readme",
   "dependencies": {
     "@grpc/proto-loader": "^0.6.7",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^10.0.0",
     "grpc": "^1.24.11",
-    "mongoose": "^6.0.13",
     "jsonwebtoken": "^8.5.1",
-    "bcryptjs": "^2.4.3"
-
+    "mongoose": "^6.0.13"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"

@@ -2,7 +2,6 @@ const mongoose = require ('mongoose')
 
 const TenantsSchema = new mongoose.Schema({
 
-   
     tenantName: {
         type: String,
         required: [true, 'Please add a name']
@@ -21,6 +20,5 @@ const TenantsSchema = new mongoose.Schema({
       type: Date,
       }
     });
-
 
 module.exports = mongoose.model('Tenants',TenantsSchema)

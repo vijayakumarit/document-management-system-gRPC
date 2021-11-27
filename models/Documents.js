@@ -1,5 +1,4 @@
 const mongoose = require ('mongoose')
-
 const DocumentsSchema = new mongoose.Schema({
 
     documentId: {
@@ -48,7 +47,6 @@ const DocumentsSchema = new mongoose.Schema({
       type: Date,
       }
     });
-
 
     DocumentsSchema.pre('save', function (next) {
         this.documentId = this.get('_id'); 
